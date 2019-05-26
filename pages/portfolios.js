@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import { Link } from '../routes'
 import {connect} from "react-redux"
 import {getPosts} from '../actions/posts'
-import BaseLayout from '../components/layouts/BaseLayout'
+import BaseLayout from '../components/layouts/PageLayout'
 
 
 class Portfolios extends Component {
