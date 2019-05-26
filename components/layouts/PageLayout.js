@@ -25,7 +25,7 @@ class PageLayout extends React.Component {
 
     return (
       <div class={`page ${title}-page`}>
-        {/* <Head>
+        <Head>
           <link href="/static/styles/main.css" rel="stylesheet" />
           <meta name="title" content="Aleksey Isaev portfolio" />
           <meta name="description" content='Aleksey Isaev portfolio'  />
@@ -35,7 +35,7 @@ class PageLayout extends React.Component {
               title ? `${title} | ` : ''
             }ALEXEY ISAEV BLOG SITE`}</title>
           )}
-        </Head> */}
+        </Head>
         <Header toggleMenuBar={this.toggleMenuBar}/>
         <MenuBar
           open={this.state.menu}
