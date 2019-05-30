@@ -1,17 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Header from "../shared/Header"
 import Head from 'next/head'
-import '../../styles/layout.scss'
+import '../../styles/index.scss'
 
 import Grid from '@material-ui/core/Grid'
 import SideBarLayout from './SideBarLayout'
 import MenuBar from '../shared/MenuBar'
+import Container from '@material-ui/core/Container'
 
 class PageLayout extends React.Component {
 
   state = {
-    menu: false
+    menu: false, 
+    appBar: 'row'
   }
 
   toggleMenuBar = itemId => {
@@ -19,12 +22,16 @@ class PageLayout extends React.Component {
     this.setState(state => ({ menu: !state.menu }))
     // itemId && this.expandItem(itemId)
   }
+
+  toggleAppBar = () => {
+    this.setState(state => ({appBar: 'row-reverse'}))
+  }
   
   render() {
     const {title} = this.props
 
     return (
-      <div class={`page ${title}-page`}>
+      <div className={`page ${title}-page`}>
         <Head>
           <link href="/static/styles/main.css" rel="stylesheet" />
           <meta name="title" content="Aleksey Isaev portfolio" />
@@ -45,14 +52,19 @@ class PageLayout extends React.Component {
           // drawerSubItems={this.state.drawerSubItems}
           // expandSubItem={this.expandSubItem}
         />
-        <Grid container>
-          <Grid item xs={12} sm={4} lg={4} justify='flex-start'>
-            <SideBarLayout /> 
-          </Grid>
-          <Grid item xs={12} sm={8} lg={8} justify='flex-start'>
-            {this.props.children}
+        <Container maxWidth="lg">
+          <Grid container direction="row">
+            <Grid item xs={12}>
+              <button onClick={() => this.toggleAppBar}>toggleAppBar</button>
+            </Grid>
+            <Grid item xs={12} sm={4} lg={4}>
+              <SideBarLayout /> 
+            </Grid>
+            <Grid item xs={12} sm={8} lg={8}>
+              {this.props.children}
+            </Grid>  
           </Grid>            
-        </Grid>
+        </Container>
       </div>
     )
   }
@@ -60,6 +72,10 @@ class PageLayout extends React.Component {
 
 PageLayout.defaultProps = {
   "title": 'Custom'
+}
+
+PageLayout.propTypes = {
+  title: PropTypes.any.isRequired
 }
 
 export default PageLayout

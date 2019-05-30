@@ -1,17 +1,16 @@
 import React from 'react'
 
-import '../../styles/layout.scss'
-import { withStyles, createStyles } from '@material-ui/styles'
-import Grid from '@material-ui/core/Grid'
+import { withStyles } from '@material-ui/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 const styles = theme => {
   return {
     paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    margin: '20px'
   }
 }}
 

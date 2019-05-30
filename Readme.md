@@ -9,8 +9,5 @@
 TODO
 1. Разобраться с document.js из документации - там походу реализован полностью стиль на клиенте и сервере (https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_document.js)
 2. Разобраться почему нет задержки при переходе на страницу, то есть loading не срабатывает
-3. Написать серверное API с работой через БД
-4. Баг https://github.com/mui-org/material-ui/issues/14175
-
-
-Box - становится любым элементом, и может переопределять стили children
+3. 
+4. Форма - Урок 79 не выполнен, не работает стилизация datepicker

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PageLayout from '../components/layouts/PageLayout'
 import { withStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button'
+// import withAuth from '../components/hoc/withAuth'
+import PortfolioCreateForm from '../components/portfolios/portfolioCreateForm'
 
 const styles = theme => ({
   root: {
@@ -15,17 +17,19 @@ const styles = theme => ({
   },
 })
 
-export class About extends Component { 
+export class PortfolioNew extends Component { 
 
   render() {
-    const {classes} = this.props
+    // const {classes} = this.props
     return (
-        <PageLayout>
-            <h1>About Page</h1>
-            <Button className={classes.root}>Hook</Button>
+        <PageLayout title="NewPortfolio">
+            <h1>Create new portfolio</h1>
+            <PortfolioCreateForm />
+            {/* <Button className={classes.root}>Hook</Button> */}
         </PageLayout>
     )
   }
 }
 
-export default withStyles(styles)(About)
+export default withStyles(styles)(PortfolioNew)
+// export default withAuth('siteOwner')(PortfolioNew)
