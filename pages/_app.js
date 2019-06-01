@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from 'prop-types'
 // https://github.com/kirill-konshin/next-redux-wrapper
 import withRedux from "next-redux-wrapper"
 import App, {Container} from 'next/app'
@@ -10,6 +11,16 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '../styles/fusTheme'
 
 export default withRedux(makeStore)(class MyApp extends App {
+
+    static propTypes = {
+        Component: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.func,
+        ]),
+        pageProps: PropTypes.object, 
+        store: PropTypes.object
+    }
+
     componentDidMount() {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
@@ -18,7 +29,7 @@ export default withRedux(makeStore)(class MyApp extends App {
         }
     }
     render() {
-        const {Component, pageProps, store} = this.props;
+        const {Component, pageProps, store} = this.props  
         return (
             <Container>
                 <Provider store={store}>

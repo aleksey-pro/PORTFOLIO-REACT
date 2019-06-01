@@ -1,11 +1,17 @@
 import React, {Component} from "react"
+import PropTypes from 'prop-types'
 import {connect} from "react-redux"
 import {getPost} from '../actions/post'
 import BaseLayout from '../components/layouts/PageLayout'
 
 
 class Portfolio extends Component {
-    static async getInitialProps({store, isServer, pathname, query}) { 
+
+    static propTypes = {
+      portfolio: PropTypes.object
+    }
+
+   static async getInitialProps({store, isServer, pathname, query}) { 
         const portfolioID = query.id
         let portfolio = {}
         try {

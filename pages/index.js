@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => {
 });
 
 export default function Index() {
-
   const classes = useStyles()
     return (
       <PageLayout title="Index">  

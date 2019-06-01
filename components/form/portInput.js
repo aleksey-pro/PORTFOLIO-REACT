@@ -1,8 +1,8 @@
-import TextField from '@material-ui/core/TextField'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-
+import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
+import FormControl from '@material-ui/core/FormControl'
+import {fieldToTextField, TextFieldProps} from 'formik-material-ui'
+import MuiTextField  from '@material-ui/core/TextField'
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -10,27 +10,21 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const FormInput = ({
-    label,
-    type,
-    field,
-    form: { touched, errors },
-    ...props
-  }) => {
-    const classes = useStyles();
+const FormInput = ({ TextFieldProps, ...props }) => {
+    const classes = useStyles()
+    const { touched, errors } = props.form
+    const {name} = props.field
     return  (
     <FormControl className={classes.formControl}>
-        <InputLabel shrink htmlFor={field.name}>{label}</InputLabel>      
-        <TextField            
-                id={field.name}
-                required
-                margin="normal"
-                type={type}
-                {...field}
-                {...props}
-        />  
-        {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
+        <MuiTextField {...fieldToTextField(props)} {...props}/>
+        {touched[name] && errors[name] && <div className="error">{errors[name]}</div>}
     </FormControl>
   )}
 
-  export default FormInput
+FormInput.propTypes = {
+  TextFieldProps: PropTypes.object,
+  form: PropTypes.object,
+  field: PropTypes.object
+}
+
+export default FormInput

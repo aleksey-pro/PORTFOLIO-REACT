@@ -1,50 +1,40 @@
-import React from "react"
-import DatePicker from "react-datepicker"
-import InputLabel from '@material-ui/core/InputLabel'
+import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles'
 import FormControl from '@material-ui/core/FormControl'
-import "react-datepicker/dist/react-datepicker.css"
+import {fieldToTextField , TextFieldProps} from 'formik-material-ui'
+import MuiTextField  from '@material-ui/core/TextField'
 
-export default class PortDate extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      dateValue: new Date()
-    }
-    this.handleChange = this.handleChange.bind(this)
-  }
+const useStyles = makeStyles(theme => ({
+    formControl: {
+      margin: theme.spacing(1),
+    },
+}))
 
-  handleChange(date) {
-    const { setFieldValue, setFieldTouched } = this.props.form;
-    const { name } = this.props.field;
-    this.setState({
-        dateValue: date
-    });
-    setFieldValue(name, date, true);
-    setFieldTouched(name, true, true);
-  }
-
-  render() {
-    const {label, field, form: { touched, errors }} = this.props
-    // const { touched, errors } = this.props.form
-    return (
-        <div>
-            <FormControl>
-            <InputLabel shrink htmlFor={field.name}>{label}</InputLabel> 
-            </FormControl>
+const PortDate = ({ TextFieldProps,...props }) => {
+    const classes = useStyles()
+    const { touched, errors } = props.form
+    const {name} = props.field
+     return (
+        <FormControl className={classes.formControl}>
             <div className="form-control">
-                <DatePicker
-                    id={field.name}
-                    selected={this.state.dateValue}
-                    onChange={this.handleChange}
-                    peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
-                    maxDate={new Date()}
-                    dropdownMode ="select"
+                <MuiTextField
+                    {...fieldToTextField(props)}
+                    defaultValue={props.value}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    {...props}
                 />
-            </div>
-            {touched[field.name] && errors[field.name] && <div className="error">{errors[field.name]}</div>}
-        </div>
-    );
-  }
+            </div>            
+            {touched[name] && errors[name] && <div className="error">{errors[name]}</div>}
+        </FormControl>
+    )
 }
+
+PortDate.propTypes = {
+    TextFieldProps: PropTypes.object,
+    form: PropTypes.object,
+    field: PropTypes.object
+  }
+
+export default PortDate

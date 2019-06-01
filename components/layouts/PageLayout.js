@@ -18,7 +18,7 @@ class PageLayout extends React.Component {
   }
 
   toggleMenuBar = itemId => {
-    console.log('toggleMenuBar');
+    // console.log('toggleMenuBar');
     this.setState(state => ({ menu: !state.menu }))
     // itemId && this.expandItem(itemId)
   }
@@ -71,7 +71,7 @@ class PageLayout extends React.Component {
 }
 
 PageLayout.defaultProps = {
-  "title": 'Custom'
+  "title": 'Title'
 }
 
 PageLayout.propTypes = {

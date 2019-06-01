@@ -9,5 +9,6 @@
 TODO
 1. Разобраться с document.js из документации - там походу реализован полностью стиль на клиенте и сервере (https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_document.js)
 2. Разобраться почему нет задержки при переходе на страницу, то есть loading не срабатывает
-3. 
-4. Форма - Урок 79 не выполнен, не работает стилизация datepicker
+3. Попробовать https://material-ui-pickers.dev/getting-started/usage
+4. Форма - Урок 79 не выполнен
+5. Moment если где-то прикручивать - через react lazy loading

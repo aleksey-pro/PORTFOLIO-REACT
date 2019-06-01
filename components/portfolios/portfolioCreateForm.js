@@ -1,15 +1,28 @@
 // Render Prop
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { makeStyles } from '@material-ui/styles'
 import PortInput from '../form/portInput'
 import PortDate from '../form/portDate'
+import Button from '@material-ui/core/Button'
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
+}))
 
 const validateErrors = (values) => {
   let errors = {};
-  console.log(values.startDate);
-  console.log(values.endDate);
-  console.log(values.startDate === values.endDate);
+  // console.log(values.startDate);
+  // console.log(values.endDate);
+  // console.log(values.startDate === values.endDate);
   Object.enties(values).forEach(([key, value]) => {
     if(!values[key]) {
       errors[key] = `Field ${key} is required!`
@@ -32,7 +45,9 @@ const INITIAL_VALUES =
   endDate: ''
  }
 
-const PortfolioCreateForm = () => (
+const PortfolioCreateForm = () => {
+  const classes = useStyles()
+  return (
   <div>
     <Formik
       initialValues={INITIAL_VALUES}
@@ -48,22 +63,24 @@ const PortfolioCreateForm = () => (
         <Form>
           <Field type="text" name="title" component={PortInput} label="Title"/>
           <Field type="text" name="company" component={PortInput} label="Company"/>
+          <Field type="text" name="location" component={PortInput} label="Location"/>
           <Field type="text" name="position" component={PortInput} label="Position"/>
           <Field type="textarea" name="description" component='textarea' component={PortInput} label="Description"/>
-          <Field name="startDate" component={PortDate} label="startDate"/>
-          <Field name="endDate" component={PortDate} label="endDate"/>
+          <Field type="date" name="startDate" component={PortDate} label="startDate" />
+          <Field type="date" name="endDate" component={PortDate} label="endDate" />
           <div>
-            <button type="submit" disabled={isSubmitting}>
+            <Button className={classes.root} type="submit" disabled={isSubmitting}>
               Create
-            </button>
+            </Button>
           </div>
         </Form>
       )}
     </Formik>
   </div>
-);
+  )
+}
 
-export default PortfolioCreateForm;
+export default PortfolioCreateForm
 
 
 

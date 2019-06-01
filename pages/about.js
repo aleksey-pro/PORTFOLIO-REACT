@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import PageLayout from '../components/layouts/PageLayout'
 import { withStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button'
@@ -26,6 +27,11 @@ export class About extends Component {
         </PageLayout>
     )
   }
+
+  static propTypes = {
+    classes: PropTypes.object
+  }
+
 }
 
 export default withStyles(styles)(About)
