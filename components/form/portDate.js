@@ -10,23 +10,25 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const PortDate = ({ TextFieldProps,...props }) => {
+const PortDate = ({ TextFieldProps, ...props }) => {
     const classes = useStyles()
-    const { touched, errors } = props.form
-    const {name} = props.field
+    const { initialDate, form: {touched, errors}, field: {name} } = props
+    // console.log(props)
+    // const dateValue = initialDate ? new Date(initialDate) : new Date()
      return (
         <FormControl className={classes.formControl}>
             <div className="form-control">
                 <MuiTextField
                     {...fieldToTextField(props)}
-                    defaultValue={props.value}
+                    // defaultValue={initialDate}
+                    defaultValue=""
                     InputLabelProps={{
                         shrink: true,
                     }}
                     {...props}
                 />
             </div>            
-            {touched[name] && errors[name] && <div className="error">{errors[name]}</div>}
+            {/* {touched[name] && errors[name] && <div className="error">{errors[name]}</div>} */}
         </FormControl>
     )
 }

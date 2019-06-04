@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import { getPortfolios } from '../axios'
 
 export function postsHasErrored(bool) {
   return {
@@ -17,14 +17,14 @@ export function postsIsLoading(bool) {
 export function postsFetchDataSuccess(data) {
   return {
       type: 'FETCH_POSTS_SUCCESS',
-      payload: data.splice(0, 10)
+      payload: data
   };
 }
 
-export const getPosts = url => async dispatch => {
+export const getPosts = () => async dispatch => {
   dispatch(postsIsLoading(true))
   try {
-    const { data, statusText } = await Axios.get(url);
+    const data = await getPortfolios();
     dispatch(postsIsLoading(false));
     dispatch(postsFetchDataSuccess(data));
   } catch(err) {

@@ -2,29 +2,29 @@ import React, { Component } from 'react'
 import PageLayout from '../components/layouts/PageLayout'
 // import withAuth from '../components/hoc/withAuth'
 import PortfolioCreateForm from '../components/portfolios/portfolioCreateForm'
-import { createPortfolio } from '../axios'
-import { Router } from '../routes' 
+import { updatePortfolio, getPortfolioById } from '../axios'
+import { Router } from '../routes'
 
 
-const INITIAL_VALUES =
- { title: '',
-  company: '',
-  location: '',
-  position: '',
-  description: '',
-  startDate: '',
-  endDate: ''
- }
+export class PortfolioEdit extends Component {
 
-export class PortfolioNew extends Component {
+static async getInitialProps({query}) {
+    let portfolio = {}   
+    try {
+        portfolio = await getPortfolioById(query.id)
+    } catch(err) {
+        console.error(err)
+    }
+    return portfolio
+}
 
   state = {
     error: undefined
   }
 
-  savePortfolio = (PortfolioData, { setSubmitting }) => {    
+  updatePortfolio = (portfolioData, { setSubmitting }) => {    
     setSubmitting(true) // prevent form from sending request
-    createPortfolio(PortfolioData)
+    updatePortfolio(portfolioData)
     .then((portfolio) => {
       setSubmitting(false) 
       this.setState({error: undefined})
@@ -39,18 +39,19 @@ export class PortfolioNew extends Component {
 
   render() {
     const {error} = this.state
+    const portfolio = this.props
     return (
-        <PageLayout title="NewPortfolio">
-            <h1>Create new portfolio</h1>
+        <PageLayout title="EditPortfolio">
+            <h1>Edit portfolio</h1>
             <PortfolioCreateForm
-               initialValues={INITIAL_VALUES}
+               initialValues={portfolio} // got initial data before edit
                error={error}
-               onSubmit={this.savePortfolio}
+               onSubmit={this.updatePortfolio}
             />
         </PageLayout>
     )
   }
 }
 
-export default PortfolioNew
+export default PortfolioEdit
 // export default withAuth('siteOwner')(PortfolioNew)

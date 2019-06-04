@@ -17,7 +17,7 @@ const FormInput = ({ TextFieldProps, ...props }) => {
     return  (
     <FormControl className={classes.formControl}>
         <MuiTextField {...fieldToTextField(props)} {...props}/>
-        {touched[name] && errors[name] && <div className="error">{errors[name]}</div>}
+        {/* {touched[name] && errors[name] && <div className="error">{errors[name]}</div>} */}
     </FormControl>
   )}
 

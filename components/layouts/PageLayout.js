@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Header from "../shared/Header"
 import Head from 'next/head'
-import '../../styles/index.scss'
+// import '../../styles/index.scss'
 
 import Grid from '@material-ui/core/Grid'
 import SideBarLayout from './SideBarLayout'
@@ -52,7 +52,7 @@ class PageLayout extends React.Component {
           // drawerSubItems={this.state.drawerSubItems}
           // expandSubItem={this.expandSubItem}
         />
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className="container">
           <Grid container direction="row">
             <Grid item xs={12}>
               <button onClick={() => this.toggleAppBar}>toggleAppBar</button>

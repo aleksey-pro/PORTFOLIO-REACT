@@ -1,10 +1,13 @@
 // Render Prop
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { makeStyles } from '@material-ui/styles'
 import PortInput from '../form/portInput'
 import PortDate from '../form/portDate'
+import Snackbar from '@material-ui/core/Snackbar'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,107 +19,107 @@ const useStyles = makeStyles(theme => ({
     height: 48,
     padding: '0 30px',
   },
+  close: {
+    maxWidth: '300px' 
+  }
 }))
 
 const validateErrors = (values) => {
   let errors = {};
-  // console.log(values.startDate);
-  // console.log(values.endDate);
-  // console.log(values.startDate === values.endDate);
-  Object.enties(values).forEach(([key, value]) => {
-    if(!values[key]) {
+
+  Object.entries(values).forEach(([key, value]) => {
+    if(!values[key] &&  key !== 'endDate') {
       errors[key] = `Field ${key} is required!`
     }
     if(values.endDate && values.startDate
-      && (values.startDate < values.endDate)) {
+      && (values.startDate > values.endDate)) {
         errors.endDate = 'End date cannot be before start date'
     }
   })
   return errors;
 }
 
-const INITIAL_VALUES =
- { title: '',
-  company: '',
-  location: '',
-  position: '',
-  description: '',
-  startDate: '',
-  endDate: ''
- }
-
-const PortfolioCreateForm = () => {
+const PortfolioCreateForm = ({onSubmit, error, initialValues}) => {
   const classes = useStyles()
-  return (
-  <div>
-    <Formik
-      initialValues={INITIAL_VALUES}
-      validate={validateErrors}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          <Field type="text" name="title" component={PortInput} label="Title"/>
-          <Field type="text" name="company" component={PortInput} label="Company"/>
-          <Field type="text" name="location" component={PortInput} label="Location"/>
-          <Field type="text" name="position" component={PortInput} label="Position"/>
-          <Field type="textarea" name="description" component='textarea' component={PortInput} label="Description"/>
-          <Field type="date" name="startDate" component={PortDate} label="startDate" />
-          <Field type="date" name="endDate" component={PortDate} label="endDate" />
-          <div>
-            <Button className={classes.root} type="submit" disabled={isSubmitting}>
-              Create
-            </Button>
-          </div>
-        </Form>
-      )}
-    </Formik>
-  </div>
+  const [open, setOpen] = React.useState(true)
+
+  function handleClose() {
+    setOpen(false);
+  }
+
+  return (   
+    <div>
+      <Formik
+        enableReinitialize={true}
+        initialValues={initialValues}
+        validate={validateErrors} // client-side validation
+        onSubmit={onSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <Field type="text" name="title" component={PortInput} label="Title" />
+            <Field type="text" name="company" component={PortInput} label="Company"/>
+            <Field type="text" name="location" component={PortInput} label="Location"/>
+            <Field type="text" name="position" component={PortInput} label="Position"/>
+            <Field 
+              type="textarea"
+              name="description"
+              component='textarea'
+              component={PortInput}
+              label="Description"
+            />
+            <Field
+              type="date"
+              name="startDate"
+              component={PortDate}
+              label="startDate"
+              initialDate={initialValues.startDate}
+            />
+            <Field
+              type="date"
+              name="endDate"
+              component={PortDate}
+              label="endDate" 
+              initialDate={initialValues.endDate}
+              />
+            <div>
+              {error && 
+                <div>
+                  <Snackbar
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                    className={classes.close}
+                    open={open}
+                    onClose={handleClose}
+                    message={<span id="message-id">{error}</span>}
+                    action={[
+                      <Button key="undo" color="secondary" size="small" onClick={handleClose}>
+                        UNDO
+                      </Button>,
+                      <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"                        
+                        onClick={handleClose}
+                      >
+                        X
+                      </IconButton>,
+                    ]}
+                  />
+                </div>
+              }
+              <Button className={classes.root} type="submit" disabled={isSubmitting}>
+                Create
+              </Button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
   )
 }
 
+PortfolioCreateForm.propTypes = {
+  onSubmit: PropTypes.func
+}
+
 export default PortfolioCreateForm
-
-
-
-// import React from 'react'
-
-// export default class PortfolioCreateForm extends React.Component {
-//     constructor(props) {
-//       super(props);
-//       this.state = {title: ''};
-  
-//       this.handleChange = this.handleChange.bind(this);
-//       this.handleSubmit = this.handleSubmit.bind(this);
-//     }
-  
-//     handleChange(event) {
-//       debugger;
-//       const field = event.target.name
-//       this.setState({[field]: event.target.value});
-//     }
-  
-//     handleSubmit(event) {
-//         // debugger;
-//       alert('A name was submitted: ' + this.state.title);
-//       event.preventDefault();
-//     }
-  
-//     render() {
-//     //   debugger;
-//       return (
-//         <form onSubmit={this.handleSubmit}>
-//           <label>
-//             Name:
-//             <input type="text" value={this.state.value} onChange={this.handleChange} />
-//           </label>
-//           <input type="submit" value="Submit" />
-//         </form>
-//       );
-//     }
-//   }

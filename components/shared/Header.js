@@ -79,8 +79,8 @@ const styles = {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem >Login</MenuItem>
+                  <MenuItem >Logout</MenuItem>
                 </Menu>
             </Toolbar>
           </AppBar>
