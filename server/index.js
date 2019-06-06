@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const config = require('./config');
 BodyParser = require('body-parser');
 
+//SERVICES
+const authService = require('./services/auth')
 
 const bookRoutes = require('./routes/book');
 const portfolioRoutes = require('./routes/portfolio');
@@ -22,6 +24,17 @@ mongoose.connect(config.DB_URI, {useNewUrlParser: true})
 
 // async () => (await mongoose.connect(config.DB_URI, {useNewUrlParser: true}))();
 
+const secretData = [
+    {
+        title: 'SecretData 1',
+        description: 'Plans how to build spaceship'
+    },
+    {
+        title: 'SecretData 2',
+        description: 'My secret passwords'
+    }
+]
+
 app.prepare()
 .then(() => {
   const server = express();
@@ -30,11 +43,26 @@ app.prepare()
   server.use('/api/v1/books', bookRoutes);
   server.use('/api/v1/portfolios', portfolioRoutes);
 
+  /**
+   * Получаем данные от сервера при переходе по пути
+   * Применяем миддлвейр authService, значение которого попадает в req
+   */  
+  server.get('/api/v1/secret', authService.checkJWT, (req, res) => {
+    return res.json(secretData)
+  })
+
   server.get('*', (req, res) => {
     return handle(req, res)
   })
 
   server.use(cors())
+
+  // обрабатываем ошибки
+  // server.use(function (err, req, res, next) {
+  //   if (err.name === 'UnauthorizedError') {
+  //     res.status(401).send({title: 'Unauthorized', detail: 'Unauthorized access'})
+  //   }
+  // })
 
   server.use(handle).listen(3000, (err) => {
     if (err) throw err

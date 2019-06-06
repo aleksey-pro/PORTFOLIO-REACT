@@ -25,7 +25,7 @@ class Portfolio extends Component {
     render() {
         const { portfolio } = this.props
           return (
-            <BaseLayout>
+            <BaseLayout {...this.props.auth}>
               <h1>{ portfolio.title }</h1>
               <p>{ portfolio.body }</p>
               <p>{ portfolio.id }</p>

@@ -9,7 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
+import Avatar from '@material-ui/core/Avatar'
 
+import auth0 from '../../services/auth0'
 
 const styles = {
   root: {
@@ -43,8 +45,16 @@ const styles = {
     this.setState({ anchorEl: null });
   };
 
+  handleLogin = () => {
+    auth0.login()
+  }
+
+  handleLogout = () => {
+    auth0.logout()
+  }
+
   render() {
-    const { classes, toggleMenuBar } = this.props
+    const { classes, toggleMenuBar, isAuthenticated, user } = this.props
     const { auth, anchorEl } = this.state
     const open = Boolean(anchorEl)
     return (
@@ -63,7 +73,14 @@ const styles = {
                 onClick={this.handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                { isAuthenticated && user &&  
+                   <React.Fragment>
+                     <span>{user.payload.name}</span>                   
+                     <Avatar alt={user.payload.name} src={user.payload.picture}/>                    
+                   </React.Fragment>
+                }
+                { !isAuthenticated && <AccountCircle />}
+
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -79,8 +96,12 @@ const styles = {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem >Login</MenuItem>
-                  <MenuItem >Logout</MenuItem>
+                  { !isAuthenticated &&
+                     <MenuItem onClick={() => this.handleLogin()}>Login</MenuItem>
+                  }
+                  { isAuthenticated &&
+                     <MenuItem onClick={() => this.handleLogout()}>Logout</MenuItem>
+                  }
                 </Menu>
             </Toolbar>
           </AppBar>

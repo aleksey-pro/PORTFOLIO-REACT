@@ -1,6 +1,5 @@
 import React, {Component} from "react"
 import PropTypes from 'prop-types'
-// import { Link } from '../routes'
 import { connect } from "react-redux"
 import { getPosts } from '../actions/posts'
 import BaseLayout from '../components/layouts/PageLayout'
@@ -13,7 +12,7 @@ import Button from '@material-ui/core/Button'
 
 import { Router } from '../routes'
 
-import { deletePortfolio } from '../axios'
+import { deletePortfolio, getPortfolios } from '../axios'
 
 class Portfolios extends Component {
 
@@ -24,7 +23,7 @@ class Portfolios extends Component {
     }
 
     
-    static async getInitialProps({store, isServer, pathname, query}) { 
+    static async getInitialProps({store}) { 
         let portfolios = []
         try {
             portfolios = await store.dispatch(getPosts())
@@ -34,7 +33,6 @@ class Portfolios extends Component {
         return { portfolios: portfolios }
     }
 
-    isAuthenticated  = true
     isSiteOwner = true
 
     displayDeleteWarning = (portfolioId) => {
@@ -52,7 +50,8 @@ class Portfolios extends Component {
             .catch(err => console.error(err))
     }
 
-    renderPortfolios(portfolios) {
+    renderPortfolios(portfolios) {   
+        const { isAuthenticated, isSiteOwner } = this.props.auth;    
         return portfolios.map((portfolio, idx) => {
             return(
                 <Grid item lg={4} className="grid-padded" key={ idx }>
@@ -63,7 +62,7 @@ class Portfolios extends Component {
                             <p className="portfolio-card-title">{ portfolio.title }</p>
                             <p className="portfolio-card-text">{ portfolio.description }</p>
                         </CardContent>
-                        { this.isAuthenticated && this.isSiteOwner && <React.Fragment>
+                        { isAuthenticated && this.isSiteOwner && <React.Fragment>
                             <Button
                                 variant="contained"
                                 color="secondary" 
@@ -84,14 +83,13 @@ class Portfolios extends Component {
     }
 
     render() {
-        const { portfolios, hasErrored, isLoading } = this.props
-        // const classes = this.useStyles()
+        const { portfolios, hasErrored, isLoading, auth: { isAuthenticated } } = this.props
+         // const classes = this.useStyles()
         // const { isAuthenticated, isSiteOwner } = this.props.auth + watch chabges in app.js
         if (hasErrored) return (<p>Error loading page</p>)
         return (
-            <BaseLayout title="Portfolios">
-            {/* <BaseLayout title="Portfolios" {...this.props.auth}> */}
-            {this.isAuthenticated && this.isSiteOwner && <Button
+            <BaseLayout title="Portfolios" {...this.props.auth}>
+            { isAuthenticated && this.isSiteOwner && <Button
                     variant="contained"
                     color="primary" 
                     onClick = {() => Router.pushRoute('/portfolioNew')}>

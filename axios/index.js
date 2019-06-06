@@ -1,21 +1,12 @@
 import axios from 'axios'
 
-// import Cookies from 'js-cookie'
-// import {getCookieFromReq} from '../helpers/utils' 
-
+import Cookies from 'js-cookie'
+import { getCookieFromReq } from '../helpers/utils' 
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:3000/api/v1',
     timeout: 3000
 })
-
-const setAuthHeader =  (req) => {
-    const token = req ? getCookieFromReq(req, 'jwt') : Cookies.getJSON('jwt')
-    if(token) {
-        return {headers: {'authorization': `Bearer ${token}`}}
-    }
-    return undefined
-}
 
 const rejectPromise = (resError) => {
     let error = {}
@@ -27,10 +18,24 @@ const rejectPromise = (resError) => {
     return Promise.reject(error)
 }
 
+/**
+ * Если мы у нас запрос с сервера (есть req), то вызываем функцию getCookieFromReq
+ * иначе берем токен из кукисов и в запрос на сервер добавляем заголовок с токеном
+ */
+const setAuthHeader = (req) => {
+    const token = req ? getCookieFromReq(req, 'jwt') : Cookies.getJSON('jwt')
+    if(token) {
+        return {headers: {'authorization': `Bearer ${token}`}}
+    }
+    return undefined
+}
+
 export const getSecretData = async (req) => {
-    const url='/secret'
+    const url = '/secret'
     return await axiosInstance.get(url, setAuthHeader(req)).then(response => response.data)
 }
+
+// PORTFOLIOS
 
 export const getPortfolios = async () => {
     return await axiosInstance.get('/portfolios').then(response => response.data)

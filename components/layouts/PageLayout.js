@@ -28,8 +28,7 @@ class PageLayout extends React.Component {
   }
   
   render() {
-    const {title} = this.props
-
+    const {title, isAuthenticated, user} = this.props
     return (
       <div className={`page ${title}-page`}>
         <Head>
@@ -43,7 +42,7 @@ class PageLayout extends React.Component {
             }ALEXEY ISAEV BLOG SITE`}</title>
           )}
         </Head>
-        <Header toggleMenuBar={this.toggleMenuBar}/>
+        <Header toggleMenuBar={this.toggleMenuBar} isAuthenticated={isAuthenticated} user={user}/>
         <MenuBar
           open={this.state.menu}
           toggleMenuBar={this.toggleMenuBar}

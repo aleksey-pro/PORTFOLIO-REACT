@@ -21,10 +21,10 @@ const useStyles = makeStyles(theme => {
   }
 });
 
-export default function Index() {
+export default function Index(props) {
   const classes = useStyles()
     return (
-      <PageLayout title="Index">  
+      <PageLayout title="Index" {...props.auth}>
         <Paper className={classes.paper}>
           <Typography variant="h5" component="h1">
             <Typed

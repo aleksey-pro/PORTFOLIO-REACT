@@ -16,6 +16,9 @@ class MyDocument extends Document {
   }
 }
 
+/**
+ * Реализуем SSR для стилей, так как _document рендерится на сервере
+ */
 MyDocument.getInitialProps = async ctx => {
 
   // Render app and page and get the context of the page with collected side effects.
@@ -25,9 +28,10 @@ MyDocument.getInitialProps = async ctx => {
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: App => props => sheets.collect(<App {...props} />),
-    });
+  })
 
   const initialProps = await Document.getInitialProps(ctx)
+
 
   return {
     ...initialProps,

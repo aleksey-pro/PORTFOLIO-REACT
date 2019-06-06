@@ -21,7 +21,7 @@ export class About extends Component {
   render() {
     const {classes} = this.props
     return (
-        <PageLayout>
+        <PageLayout {...this.props.auth} >
             <h1>About Page</h1>
             <Button className={classes.root}>Hook</Button>
         </PageLayout>
