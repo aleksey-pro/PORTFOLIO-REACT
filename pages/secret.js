@@ -68,8 +68,8 @@ export class Secret extends Component {
 
   static propTypes = {
     classes: PropTypes.object
-  }
+  } 
 
 }
 
-export default withStyles(styles)(withAuth(Secret))
+export default withStyles(styles)(withAuth()(Secret))
