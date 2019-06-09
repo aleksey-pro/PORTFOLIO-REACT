@@ -3,7 +3,7 @@ const jwksRsa = require('jwks-rsa')
 
 const namespace = 'http://localhost:3000/'
 
-//MIDDLEWARE
+// MIDDLEWARE
 // Возвращает генерируемое значение в request конечного запроса сервера, к которму этот
 // middlware применяется
 
@@ -26,10 +26,11 @@ exports.checkJWT = jwt({
 })
 
 exports.checkRole = role => (req, res, next) => {
-    const user = req.user
-    if(user && (user[namespace + 'role']) === role) {
+    const {user} = req
+    console.log(user && (user[`${namespace  }role`]) === role)
+    if(user && (user[`${namespace  }role`]) === role) {
         next()
     } else {
-        return res.status(401).send({title: 'Not authorized', detail: 'You not authorized to yhis data'})
+        return res.status(401).send({title: 'Not authorized', detail: 'You not authorized to this data'})
     }
 }

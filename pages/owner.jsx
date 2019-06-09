@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import PageLayout from '../components/layouts/PageLayout'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import PageLayout from '../components/layouts/PageLayout';
 // import { withStyles } from '@material-ui/styles'
 // import Button from '@material-ui/core/Button'
 
-import withAuth from '../components/hoc/withAuth'
+import withAuth from '../components/hoc/withAuth';
 
 // const styles = theme => ({
 //   root: {
@@ -18,21 +18,19 @@ import withAuth from '../components/hoc/withAuth'
 //   },
 // })
 
-export class Owner extends Component { 
-
+export class Owner extends Component {
   render() {
     // const {classes} = this.props
     return (
-        <PageLayout {...this.props.auth} >
-            <h1>Owner Page</h1>
-        </PageLayout>
-    )
+      <PageLayout {...this.props.auth}>
+        <h1>Owner Page</h1>
+      </PageLayout>
+    );
   }
 
-//   static propTypes = {
-//     classes: PropTypes.object
-//   }
-
+  //   static propTypes = {
+  //     classes: PropTypes.object
+  //   }
 }
 
-export default withAuth('siteOwner')(Owner)
+export default withAuth('siteOwner')(Owner);

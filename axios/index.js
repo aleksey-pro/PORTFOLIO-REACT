@@ -33,6 +33,7 @@ const setAuthHeader = (req) => {
 export const getSecretData = async (req) => {
     const url = '/secret'
     return await axiosInstance.get(url, setAuthHeader(req)).then(response => response.data)
+
 }
 
 // PORTFOLIOS

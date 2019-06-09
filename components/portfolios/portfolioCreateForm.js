@@ -1,13 +1,15 @@
 // Render Prop
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { makeStyles } from '@material-ui/styles'
-import PortInput from '../form/portInput'
-import PortDate from '../form/portDate'
-import Snackbar from '@material-ui/core/Snackbar'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Formik, Form, Field } from 'formik';
+
+import { makeStyles } from '@material-ui/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+
+import PortInput from '../form/portInput';
+import PortDate from '../form/portDate';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,85 +22,113 @@ const useStyles = makeStyles(theme => ({
     padding: '0 30px',
   },
   close: {
-    maxWidth: '300px' 
-  }
-}))
+    maxWidth: '300px',
+  },
+}));
 
-const validateErrors = (values) => {
-  let errors = {};
+const validateErrors = values => {
+  const errors = {};
 
   Object.entries(values).forEach(([key, value]) => {
-    if(!values[key] &&  key !== 'endDate') {
-      errors[key] = `Field ${key} is required!`
+    if (!values[key] && key !== 'endDate') {
+      errors[key] = `Field ${key} is required!`;
     }
-    if(values.endDate && values.startDate
-      && (values.startDate > values.endDate)) {
-        errors.endDate = 'End date cannot be before start date'
+    if (
+      values.endDate &&
+      values.startDate &&
+      values.startDate > values.endDate
+    ) {
+      errors.endDate = 'End date cannot be before start date';
     }
-  })
+  });
   return errors;
-}
+};
 
-const PortfolioCreateForm = ({onSubmit, error, initialValues}) => {
-  const classes = useStyles()
-  const [open, setOpen] = React.useState(true)
+const PortfolioCreateForm = ({ onSubmit, error, initialValues }) => {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
 
   function handleClose() {
     setOpen(false);
   }
 
-  return (   
+  return (
     <div>
       <Formik
-        enableReinitialize={true}
+        enableReinitialize
         initialValues={initialValues}
         validate={validateErrors} // client-side validation
         onSubmit={onSubmit}
       >
         {({ isSubmitting }) => (
           <Form>
-            <Field type="text" name="title" component={PortInput} label="Title" />
-            <Field type="text" name="company" component={PortInput} label="Company"/>
-            <Field type="text" name="location" component={PortInput} label="Location"/>
-            <Field type="text" name="position" component={PortInput} label="Position"/>
-            <Field 
-              type="textarea"
-              name="description"
-              component='textarea'
+            <Field
+              type='text'
+              name='title'
               component={PortInput}
-              label="Description"
+              label='Title'
             />
             <Field
-              type="date"
-              name="startDate"
+              type='text'
+              name='company'
+              component={PortInput}
+              label='Company'
+            />
+            <Field
+              type='text'
+              name='location'
+              component={PortInput}
+              label='Location'
+            />
+            <Field
+              type='text'
+              name='position'
+              component={PortInput}
+              label='Position'
+            />
+            <Field
+              type='textarea'
+              name='description'
+              component='textarea'
+              component={PortInput}
+              label='Description'
+            />
+            <Field
+              type='date'
+              name='startDate'
               component={PortDate}
-              label="startDate"
+              label='startDate'
               initialDate={initialValues.startDate}
             />
             <Field
-              type="date"
-              name="endDate"
+              type='date'
+              name='endDate'
               component={PortDate}
-              label="endDate" 
+              label='endDate'
               initialDate={initialValues.endDate}
-              />
+            />
             <div>
-              {error && 
+              {error && (
                 <div>
                   <Snackbar
-                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                     className={classes.close}
                     open={open}
                     onClose={handleClose}
-                    message={<span id="message-id">{error}</span>}
+                    message={<span id='message-id'>{error}</span>}
                     action={[
-                      <Button key="undo" color="secondary" size="small" onClick={handleClose}>
+                      <Button
+                        key='undo'
+                        color='secondary'
+                        size='small'
+                        onClick={handleClose}
+                      >
                         UNDO
                       </Button>,
                       <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"                        
+                        key='close'
+                        aria-label='Close'
+                        color='inherit'
                         onClick={handleClose}
                       >
                         X
@@ -106,8 +136,12 @@ const PortfolioCreateForm = ({onSubmit, error, initialValues}) => {
                     ]}
                   />
                 </div>
-              }
-              <Button className={classes.root} type="submit" disabled={isSubmitting}>
+              )}
+              <Button
+                className={classes.root}
+                type='submit'
+                disabled={isSubmitting}
+              >
                 Create
               </Button>
             </div>
@@ -115,11 +149,11 @@ const PortfolioCreateForm = ({onSubmit, error, initialValues}) => {
         )}
       </Formik>
     </div>
-  )
-}
+  );
+};
 
 PortfolioCreateForm.propTypes = {
-  onSubmit: PropTypes.func
-}
+  onSubmit: PropTypes.func.isRequired,
+};
 
-export default PortfolioCreateForm
+export default PortfolioCreateForm;

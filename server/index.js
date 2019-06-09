@@ -1,18 +1,18 @@
 const express = require('express');
 const next = require('next');
+const mongoose = require("mongoose");
 const routes = require('../routes');
 
-const mongoose = require("mongoose");
 const config = require('./config');
 BodyParser = require('body-parser');
 
-//SERVICES
+// SERVICES
 const authService = require('./services/auth')
 
 const bookRoutes = require('./routes/book');
 const portfolioRoutes = require('./routes/portfolio');
 
-var cors = require('cors');
+const cors = require('cors');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -51,9 +51,11 @@ app.prepare()
     return res.json(secretData)
   })
 
+  /**
+   * Проверяем - есть ли доступ к странице для логина siteOwner
+   */
   server.get('/api/v1/onlysiteowner', authService.checkJWT, authService.checkRole('siteOwner'), (req, res) => {
-    console.log(req.user)
-    return res.json(secretData)
+     return res.json(secretData)
   })
 
   server.get('*', (req, res) => {
