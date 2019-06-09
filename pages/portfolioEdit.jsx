@@ -11,13 +11,13 @@ export class PortfolioEdit extends Component {
     try {
       portfolio = await getPortfolioById(query.id);
     } catch (err) {
-      console.error(err);
+      throw new Error(err);
     }
-    return portfolio;
+    return { portfolio };
   }
 
   state = {
-    error: undefined
+    error: undefined,
   };
 
   updatePortfolio = (portfolioData, { setSubmitting }) => {
@@ -40,7 +40,7 @@ export class PortfolioEdit extends Component {
     const { error } = this.state;
     const portfolio = this.props;
     return (
-      <PageLayout title="EditPortfolio">
+      <PageLayout title='EditPortfolio'>
         <h1>Edit portfolio</h1>
         <PortfolioCreateForm
           initialValues={portfolio} // got initial data before edit

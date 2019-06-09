@@ -90,6 +90,7 @@ const PortfolioCreateForm = ({ onSubmit, error, initialValues }) => {
               type='textarea'
               name='description'
               component='textarea'
+              // eslint-disable-next-line react/jsx-no-duplicate-props
               component={PortInput}
               label='Description'
             />
@@ -98,14 +99,12 @@ const PortfolioCreateForm = ({ onSubmit, error, initialValues }) => {
               name='startDate'
               component={PortDate}
               label='startDate'
-              initialDate={initialValues.startDate}
             />
             <Field
               type='date'
               name='endDate'
               component={PortDate}
               label='endDate'
-              initialDate={initialValues.endDate}
             />
             <div>
               {error && (
@@ -154,6 +153,8 @@ const PortfolioCreateForm = ({ onSubmit, error, initialValues }) => {
 
 PortfolioCreateForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  error: PropTypes.object.isRequired,
+  initialValues: PropTypes.object.isRequired,
 };
 
 export default PortfolioCreateForm;

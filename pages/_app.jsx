@@ -11,10 +11,6 @@ import theme from '../styles/fusTheme';
 
 import auth0 from '../services/auth0';
 
-{
-  /* Normailze like */
-}
-
 export default withRedux(makeStore)(
   class MyApp extends App {
     static propTypes = {
@@ -41,15 +37,12 @@ export default withRedux(makeStore)(
       if (Component.getInitialProps) {
         pageProps = await Component.getInitialProps(ctx);
       }
-
-      const auth = { user, isAuthenticated: !!user };
       // Расшифровка того что выше. то есть передаем true а не прсваеваем значение в случае isAuthenticated: true
       // let isAuthenticated = false
       // if(user) {isAuthenticated = true}
-
-      // const isSiteOwner = user && user[process.env.NAMESPACE + '/role'] === 'siteOwner';
-      // const auth = { user, isAuthenticated: !!user, isSiteOwner };
-
+      const isSiteOwner =
+        user && user.payload['http://localhost:3000/role'] === 'siteOwner';
+      const auth = { user, isAuthenticated: !!user, isSiteOwner };
       return { pageProps, auth };
     }
 

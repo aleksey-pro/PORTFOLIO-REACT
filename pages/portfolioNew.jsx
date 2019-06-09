@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
+import { format } from 'date-fns';
+
 import PageLayout from '../components/layouts/PageLayout';
 import withAuth from '../components/hoc/withAuth';
 import PortfolioCreateForm from '../components/portfolios/portfolioCreateForm';
 import { createPortfolio } from '../axios';
 import { Router } from '../routes';
 
+const aDate = format(new Date(), 'YYYY-MM-DD');
+
 const INITIAL_VALUES = {
-  title: '',
-  company: '',
-  location: '',
-  position: '',
-  description: '',
-  startDate: '',
-  endDate: ''
+  "title": '',
+  "company": '',
+  "location": '',
+  "position": '',
+  "description": '',
+  "startDate": aDate,
+  "endDate": aDate,
 };
 
 export class PortfolioNew extends Component {
   state = {
-    error: undefined
+    "error": undefined,
   };
 
   savePortfolio = (PortfolioData, { setSubmitting }) => {
@@ -25,7 +29,7 @@ export class PortfolioNew extends Component {
     createPortfolio(PortfolioData)
       .then(() => {
         setSubmitting(false);
-        this.setState({ error: undefined });
+        this.setState({ "error": undefined });
         Router.pushRoute('/portfolios');
       })
       .catch(err => {
@@ -39,7 +43,7 @@ export class PortfolioNew extends Component {
   render() {
     const { error } = this.state;
     return (
-      <PageLayout title="NewPortfolio">
+      <PageLayout title='NewPortfolio'>
         <h1>Create new portfolio</h1>
         <PortfolioCreateForm
           initialValues={INITIAL_VALUES}

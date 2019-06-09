@@ -43,7 +43,8 @@ export default role => Component =>
             <h1>Вы не вошли. Пожалуйста, залогиньтесь.</h1>
           </PageLayout>
         );
-      } if (!isAuthorized) {
+      }
+      if (!isAuthorized) {
         return (
           <PageLayout {...this.props.auth}>
             <h1>
@@ -52,9 +53,8 @@ export default role => Component =>
             </h1>
           </PageLayout>
         );
-      } 
-        return <Component {...this.props} />;
-      
+      }
+      return <Component {...this.props} />;
     };
 
     render() {

@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,22 +11,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PortDate = ({ TextFieldProps, ...props }) => {
+const PortDate = ({ ...props }) => {
   const classes = useStyles();
   const {
     initialDate,
     form: { touched, errors },
-    field: { name },
+    field: { name, value },
   } = props;
-  // console.log(props)
-  // const dateValue = initialDate ? new Date(initialDate) : new Date()
   return (
     <FormControl className={classes.formControl}>
       <div className='form-control'>
         <MuiTextField
           {...fieldToTextField(props)}
-          // defaultValue={initialDate}
-          defaultValue=''
+          value={value}
           InputLabelProps={{
             shrink: true,
           }}
