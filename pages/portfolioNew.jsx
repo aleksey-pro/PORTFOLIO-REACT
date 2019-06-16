@@ -10,18 +10,18 @@ import { Router } from '../routes';
 const aDate = format(new Date(), 'YYYY-MM-DD');
 
 const INITIAL_VALUES = {
-  "title": '',
-  "company": '',
-  "location": '',
-  "position": '',
-  "description": '',
-  "startDate": aDate,
-  "endDate": aDate,
+  title: '',
+  company: '',
+  location: '',
+  position: '',
+  description: '',
+  startDate: aDate,
+  endDate: aDate,
 };
 
 export class PortfolioNew extends Component {
   state = {
-    "error": undefined,
+    error: undefined,
   };
 
   savePortfolio = (PortfolioData, { setSubmitting }) => {
@@ -29,7 +29,7 @@ export class PortfolioNew extends Component {
     createPortfolio(PortfolioData)
       .then(() => {
         setSubmitting(false);
-        this.setState({ "error": undefined });
+        this.setState({ error: undefined });
         Router.pushRoute('/portfolios');
       })
       .catch(err => {

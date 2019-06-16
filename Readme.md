@@ -28,5 +28,10 @@ _6 способов стилизации_
 4. Через 'style jsx' ( ссылки в хедере)
 5. Через withStyles (Button на странице about.js)
 6. Через тему MuiThemeProvider и JssProvider для всех компонент через рутовый компонент app.js
+7. https://search.google.com/search-console/mobile-usability?resource_id=http://sitedev.spb.ru/&utm_source=wnc_10030322&utm_medium=gamma&utm_campaign=wnc_10030322&utm_content=msg_100058679&hl=ru
+8. Перевести авторизацию на Redux
+9. transition при переходе по страничкам. см. в документации
 
 eslit example - https://github.com/Sly777/ran/blob/master/.eslintrc
+
+https://date-fns.org/v1.30.1/docs/format

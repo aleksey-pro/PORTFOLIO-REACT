@@ -12,8 +12,8 @@ const styles = () => ({
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'white',
     height: 48,
-    padding: '0 30px'
-  }
+    padding: '0 30px',
+  },
 });
 
 export const About = props => {
@@ -29,7 +29,7 @@ export const About = props => {
 
 About.propTypes = {
   classes: PropTypes.objectOf(PropTypes.object).isRequired,
-  auth: PropTypes.objectOf(PropTypes.object).isRequired
+  auth: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default withStyles(styles)(About);
