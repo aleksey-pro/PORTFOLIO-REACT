@@ -1,22 +1,28 @@
-const withSass = require('@zeit/next-sass')
-const withBundleAnalyzer = require("@zeit/next-bundle-analyzer")
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withPlugins = require('next-compose-plugins');
 
-module.exports = withBundleAnalyzer({
-  analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
-  analyzeBrowser: ["browser", "both"].includes(process.env.BUNDLE_ANALYZE),
+const withCSS = require('@zeit/next-css');
+const withSass = require('@zeit/next-sass');
+const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
+
+module.exports = withPlugins([[withCSS], [withSass], [withBundleAnalyzer]], {
+  analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
+  analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
     server: {
       analyzerMode: 'static',
-      reportFilename: '../bundles/server.html'
+      reportFilename: '../bundles/server.html',
     },
     browser: {
       analyzerMode: 'static',
-      reportFilename: '../bundles/client.html'
-    }
-  }
-})
-
-module.exports = withSass()
-
-// const withCSS = require('@zeit/next-css')
-// module.exports = withCSS(withSass())
+      reportFilename: '../bundles/client.html',
+    },
+  },
+  webpack: config => {
+    config.module.rules.push({
+      test: /\.md$/,
+      use: 'raw-loader',
+    });
+    return config;
+  },
+});

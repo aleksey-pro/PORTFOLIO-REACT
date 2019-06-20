@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 import Cookies from 'js-cookie';
+import { resolve } from 'url';
 import { getCookieFromReq } from '../helpers/utils';
 
 const axiosInstance = axios.create({
-  "baseURL": 'http://localhost:3000/api/v1',
-  "timeout": 3000,
+  baseURL: 'http://localhost:3000/api/v1',
+  timeout: 3000,
 });
 
 const rejectPromise = resError => {
@@ -27,7 +28,7 @@ const rejectPromise = resError => {
 const setAuthHeader = req => {
   const token = req ? getCookieFromReq(req, 'jwt') : Cookies.getJSON('jwt');
   if (token) {
-    return { "headers": { "authorization": `Bearer ${token}` } };
+    return { headers: { authorization: `Bearer ${token}` } };
   }
   return undefined;
 };
@@ -71,4 +72,15 @@ export const deletePortfolio = portfolioId => {
   return axiosInstance
     .delete(`/portfolios/${portfolioId}`, setAuthHeader())
     .then(response => response.data);
+};
+
+// BLOGS
+
+export const saveBlogAPI = () => {
+  // eslint-disable-next-line no-shadow
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('promise resolved!');
+    }, 2000);
+  });
 };

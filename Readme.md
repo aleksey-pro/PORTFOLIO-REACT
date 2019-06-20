@@ -32,6 +32,9 @@ _6 способов стилизации_
 8. Перевести авторизацию на Redux
 9. transition при переходе по страничкам. см. в документации
 
+useBlogs as from https://blog.toukopeltomaa.com/next-js-markdown-blog
+
 eslit example - https://github.com/Sly777/ran/blob/master/.eslintrc
 
+Dates lib:
 https://date-fns.org/v1.30.1/docs/format
