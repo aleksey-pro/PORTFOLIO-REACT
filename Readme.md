@@ -1,6 +1,6 @@
-**_ Проект личного блога-портфолио на базе MERN _**
+# Проект личного блога-портфолио на базе MERN
 
-Стек:
+## Стек:
 
 - Фронтенд - React.js
 - Бекенд - Next.js + Node.js
@@ -10,7 +10,7 @@
 - Формы - React-formik
 - Чаcтичное внедрение Redux
 
-TODO
+## ERRORS
 
 1. Не работает SASS!!!
 2. Разобраться почему нет задержки при переходе на страницу, то есть loading не срабатывает
@@ -21,6 +21,8 @@ TODO
 7.
 
 _6 способов стилизации_
+
+## TODO
 
 1. инлайново (заголовок в хедере)
 2. через классы + scss (заголовок в хедере)
@@ -35,6 +37,9 @@ _6 способов стилизации_
 11. Check all h1 every pages, alts in images
 12. https://favicon.io/favicon-generator/ - TODO + web manifest
 13. After migration to https - create full webmanifest http://brucelawson.github.io/manifest/
+14. Add users for testing
+
+### SOURCES:
 
 usedBlogs as from https://blog.toukopeltomaa.com/next-js-markdown-blog + https://www.npmjs.com/package/next-manifest
 
@@ -43,7 +48,7 @@ eslit example - https://github.com/Sly777/ran/blob/master/.eslintrc
 Dates lib:
 https://date-fns.org/v1.30.1/docs/format
 
-Add later
+### Add later
 
 "husky": {
 "hooks": {
