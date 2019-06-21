@@ -41,7 +41,7 @@ export default withRedux(makeStore)(
       // let isAuthenticated = false
       // if(user) {isAuthenticated = true}
       const isSiteOwner =
-        user && user.payload['http://localhost:3000/role'] === 'siteOwner';
+        user && user.payload[`${process.env.NAMESPACE}/role`] === 'siteOwner';
       const auth = { user, isAuthenticated: !!user, isSiteOwner };
       return { pageProps, auth };
     }

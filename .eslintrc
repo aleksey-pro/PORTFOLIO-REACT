@@ -17,6 +17,7 @@
     "react/prop-types": 0,
     "react/destructuring-assignment": 0,
     "react/require-default-props": 0,
-    "no-return-await": 0
+    "no-return-await": 0,
+    "import/prefer-default-export": 0
   }
 }

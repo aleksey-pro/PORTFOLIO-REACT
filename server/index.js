@@ -2,6 +2,7 @@
 
 const express = require('express');
 const next = require('next');
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const BodyParser = require('body-parser');
@@ -27,6 +28,13 @@ mongoose
 
 // async () => (await mongoose.connect(config.DB_URI, {useNewUrlParser: true}))();
 
+const robotsOptions = {
+  root: path.join(__dirname, '../static'),
+  headers: {
+    'Content-Type': 'text/plain; charset=UTF-8',
+  },
+};
+
 const secretData = [
   {
     title: 'SecretData 1',
@@ -47,6 +55,10 @@ app
     server.use('/api/v1/books', bookRoutes);
     server.use('/api/v1/portfolios', portfolioRoutes);
     server.use('/api/v1/blogs', blogRoutes);
+
+    server.get('/robots.txt', (req, res) => {
+      return res.status(200).sendFile('robots.txt', robotsOptions);
+    });
 
     /**
      * Получаем данные от сервера при переходе по пути
@@ -82,9 +94,11 @@ app
     //   }
     // })
 
-    server.use(handle).listen(3000, err => {
+    const PORT = process.env.PORT || 3000;
+
+    server.use(handle).listen(PORT, err => {
       if (err) throw err;
-      console.log('> Ready on http://localhost:3000');
+      console.log(`> Ready on port${  PORT}`);
     });
   })
   .catch(ex => {

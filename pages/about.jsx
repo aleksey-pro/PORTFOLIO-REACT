@@ -16,7 +16,7 @@ const styles = () => ({
   },
 });
 
-export const About = props => {
+const About = props => {
   const { classes, auth } = props;
 
   return (

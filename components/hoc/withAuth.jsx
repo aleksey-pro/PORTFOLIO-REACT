@@ -1,8 +1,6 @@
 import React from 'react';
 import PageLayout from '../layouts/PageLayout';
 
-const namespace = 'http://localhost:3000/';
-
 export default role => Component =>
   class withAuth extends React.Component {
     /**
@@ -25,7 +23,7 @@ export default role => Component =>
       const { isAuthenticated, user } = this.props.auth;
 
       // Объект user возвращает siteOwner (в настройках ключа на сайте Auth0)
-      const userRole = user && user.payload[`${namespace}role`];
+      const userRole = user && user.payload[`${process.env.NAMESPACE}/role`];
 
       let isAuthorized = false;
 

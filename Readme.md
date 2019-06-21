@@ -30,11 +30,23 @@ _6 способов стилизации_
 6. Через тему MuiThemeProvider и JssProvider для всех компонент через рутовый компонент app.js
 7. https://search.google.com/search-console/mobile-usability?resource_id=http://sitedev.spb.ru/&utm_source=wnc_10030322&utm_medium=gamma&utm_campaign=wnc_10030322&utm_content=msg_100058679&hl=ru
 8. Перевести авторизацию на Redux
-9. transition при переходе по страничкам. см. в документации
+9. transition при переходе по страничкам. см. в документации + урок 152
+10. Flipping card - Урок 153 - 155 + 160
+11. Check all h1 every pages, alts in images
+12. https://favicon.io/favicon-generator/ - TODO + web manifest
+13. After migration to https - create full webmanifest http://brucelawson.github.io/manifest/
 
-useBlogs as from https://blog.toukopeltomaa.com/next-js-markdown-blog
+usedBlogs as from https://blog.toukopeltomaa.com/next-js-markdown-blog + https://www.npmjs.com/package/next-manifest
 
 eslit example - https://github.com/Sly777/ran/blob/master/.eslintrc
 
 Dates lib:
 https://date-fns.org/v1.30.1/docs/format
+
+Add later
+
+"husky": {
+"hooks": {
+"pre-commit": "lint-staged"
+}
+},

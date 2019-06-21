@@ -9,6 +9,7 @@ import Header from '../shared/Header';
 
 import SideBarLayout from './SideBarLayout';
 import MenuBar from '../shared/MenuBar';
+import Footer from '../shared/footer';
 
 class PageLayout extends React.Component {
   state = {
@@ -27,14 +28,31 @@ class PageLayout extends React.Component {
   // };
 
   render() {
-    const { title, isAuthenticated, user } = this.props;
+    const { title, isAuthenticated, user, canonical } = this.props;
     return (
       <div className={`page ${title}-page`}>
         <Head>
           <link href='/static/styles/main.css' rel='stylesheet' />
           <link href='/static/styles/mde.css' rel='stylesheet' />
-          <meta name='title' content='Aleksey Isaev portfolio' />
           <meta name='description' content='Aleksey Isaev portfolio' />
+          <meta name='keywords' content='Aleksey Isaev portfolio' />
+
+          <meta
+            property='og:title'
+            content='Aleks Isaev- programmer, developer'
+          />
+          <meta property='og:locale' content='ru_RU' />
+          <meta property='og:url' content={`${process.env.BASE_URL}`} />
+          <meta property='og:type' content='website' />
+          <meta property='og:description' content='Aleksey Isaev portfolio' />
+
+          {canonical && (
+            <link
+              rel='canonical'
+              href={`${process.env.BASE_URL}}${canonical}`}
+            />
+          )}
+          <link rel='icon' type='image/ico' href='/static/icons/favicon.ico' />
           <link
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500'
@@ -73,6 +91,7 @@ class PageLayout extends React.Component {
             </Grid>
           </Grid>
         </Container>
+        <Footer />
       </div>
     );
   }

@@ -4,14 +4,16 @@ import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import { getCookieFromReq } from '../helpers/utils';
 
+const { CLIENT_ID } = process.env;
+
 class Auth0 {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       domain: 'dev-gfxis29r.eu.auth0.com',
-      clientID: 'T22UAGUlBeeyWuQiFgkPyMevyqy04tNg',
-      redirectUri: 'http://localhost:3000/callback',
+      clientID: CLIENT_ID,
+      redirectUri: `${process.env.BASE_URL}/callback`,
       responseType: 'token id_token',
-      scope: 'openid profile'
+      scope: 'openid profile',
     });
   }
 
@@ -41,9 +43,9 @@ class Auth0 {
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
-    Cookies.set('user', authResult.idTokenPayload);
+    // Cookies.set('user', authResult.idTokenPayload);
     Cookies.set('jwt', authResult.idToken);
-    Cookies.set('expiresAt', expiresAt);
+    // Cookies.set('expiresAt', expiresAt);
   };
 
   /**
@@ -51,12 +53,12 @@ class Auth0 {
    * удяляем куки и редиректимся на домашнюю страницу
    */
   logout = () => {
-    Cookies.remove('user');
+    // Cookies.remove('user');
     Cookies.remove('jwt');
-    Cookies.remove('expiresAt');
+    // Cookies.remove('expiresAt');
     this.auth0.logout({
       redirectTo: '',
-      clientID: 'T22UAGUlBeeyWuQiFgkPyMevyqy04tNg'
+      clientID: CLIENT_ID,
     });
   };
 
@@ -74,7 +76,7 @@ class Auth0 {
     const res = await axios.get(
       'https://dev-gfxis29r.eu.auth0.com/.well-known/jwks.json',
       {
-        crossDomain: true
+        crossDomain: true,
       }
     );
     const jwks = res.data;

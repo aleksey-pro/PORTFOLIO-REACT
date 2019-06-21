@@ -12,7 +12,7 @@ import { Router } from '../routes';
 
 import { deletePortfolio } from '../axios';
 
-class Portfolios extends Component {
+class Portfolios2 extends Component {
   static propTypes = {
     portfolios: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool.isRequired,
@@ -91,7 +91,11 @@ class Portfolios extends Component {
     // const classes = this.useStyles()
     if (hasErrored) return <p>Error loading page</p>;
     return (
-      <BaseLayout title='Portfolios' {...this.props.auth}>
+      <BaseLayout
+        canonical='/portfolios'
+        title='Portfolios'
+        {...this.props.auth}
+      >
         {isAuthenticated && isSiteOwner && (
           <Button
             variant='contained'
@@ -121,4 +125,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Portfolios);
+export default connect(mapStateToProps)(Portfolios2);
