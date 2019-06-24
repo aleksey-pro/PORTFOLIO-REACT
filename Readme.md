@@ -41,10 +41,10 @@ _6 способов стилизации_
 
 ### SOURCES:
 
+mui-icons https://materialdesignicons.com/
+graphics - https://www.vecteezy.com/
 usedBlogs as from https://blog.toukopeltomaa.com/next-js-markdown-blog + https://www.npmjs.com/package/next-manifest
-
 eslit example - https://github.com/Sly777/ran/blob/master/.eslintrc
-
 Dates lib:
 https://date-fns.org/v1.30.1/docs/format
 
