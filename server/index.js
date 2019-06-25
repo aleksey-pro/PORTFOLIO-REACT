@@ -94,7 +94,7 @@ app
     //   }
     // })
 
-    const PORT = process.env.PORT || 3000;
+    const PORT = config.PORT || 3000;
 
     server.use(handle).listen(PORT, err => {
       if (err) throw err;
