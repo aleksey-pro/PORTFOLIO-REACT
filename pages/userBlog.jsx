@@ -8,10 +8,7 @@ class userBlog extends React.Component {
   static async getInitialProps({ query }) {
     let document = {};
     try {
-      // const post = await import(`../posts/${query.id}.md`);
-      const post = await import(`${process.cwd()}/posts/${query.id}.md`);
-
-      // const post = await import(`${process.env.BASE_URL}/posts/${query.id}.md`);
+      const post = await require(`../posts/${query.id}.md`);
       document = matter(post.default);
     } catch (err) {
       throw new Error(err);

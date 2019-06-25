@@ -60,9 +60,9 @@
   "devDependencies": {},
   "scripts": {
     "dev": "node server/index.js",
-    "build": "next build",
+    "build": "cross-env next build",
     "start": "cross-env NODE_ENV=production node server/index.js",
-    "production-postbuild": "./node_modules/next/dist/bin/next build",
+    "production-postbuild": "cross-env NODE_ENV=production ./node_modules/next/dist/bin/next build",
     "analyze": "cross-env BUNDLE_ANALYZE=both next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",

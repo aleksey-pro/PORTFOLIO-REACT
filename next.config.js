@@ -18,11 +18,16 @@ module.exports = withPlugins([[withCSS], [withSass], [withBundleAnalyzer]], {
       reportFilename: '../bundles/client.html',
     },
   },
-  webpack: config => {
+  webpack: (config, { dev, webpack }) => {
     config.module.rules.push({
       test: /\.md$/,
       use: 'raw-loader',
-    });
+    }),
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
+        })
+      );
     return config;
   },
 });

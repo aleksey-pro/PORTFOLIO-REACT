@@ -58,4 +58,3 @@ class UserBlogs extends React.Component {
 }
 
 export default withAuth('siteOwner')(UserBlogs);
-// export default UserBlogs;
