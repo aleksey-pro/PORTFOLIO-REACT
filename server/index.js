@@ -98,7 +98,7 @@ app
 
     server.use(handle).listen(PORT, err => {
       if (err) throw err;
-      console.log(`> Ready on port${  PORT}`);
+      console.log(`> Ready on port${PORT}`);
     });
   })
   .catch(ex => {
